@@ -13,40 +13,40 @@
 | birth_day          | date   | null: false |
 ### Association
 - has_many :items
-- belongs_to :shipping_address
+- has_many :orders
 ## items
 | Column     | Type       | Options     |
 | ---------- | ---------- | ----------- |
 | name       | string     | null: false |
 | description| text       | null: false |
-| image      | text       | null: false |
-| category   | string     | null: false |
-| condition  | integer    | null: false |
-| shipping_free_burden    | boolean     | null: false |
-| shipping_days| integer  |  null: false|
+| category_id| integer    | null: false |
+| condition_id| integer    | null: false |
+| shipping_free_burden_id  | integer     | null: false |
+| shipping_days_id| integer  |  null: false|
 | prefecture_id| integer  | null: false |
 | price      | integer    | null: false |
-| user_id    | references | null: false,foreign_key: true |
+| user       | references | null: false,foreign_key: true |
 ### Association
 - belongs_to :user
-- belongs_to :shipping_address
-## shipping_address
+- has_one :order
+## shipping_addresses
 | Column     | Type       | Options     |
 | ---------- | ---------- | ----------- |
-| post_code  | integer    | null: false |
-| state      | string     | null: false |
+| post_code  | string    | null: false |
+| region     | string     | null: false |
 | city       | string     | null: false |
-| street_address | integer| null: false |
-| building   | string     | null: false |
-| phone      | integer    | null: false |
-| order_id   | references | null: false,foreign_key: true |
+| street_address | string | null: false |
+| building   | string     |
+| phone      | string    | null: false |
+| order      | references | null: false,foreign_key: true |
 ### Association
-- has_one :order
+- belongs_to:order
 ## orders
 | Column     | Type       | Options     |
 | ---------- | ---------- | ----------- |
 | user       | references | null: false, foreign_key: true |
-| item       | string     | null: false |
+| item       | references | null: false, foreign_key: true |
 ### Association
-- belongs_to :shipping_address
+- has_one :shipping_address
 - belongs_to :user
+- belongs_to :item
