@@ -1,12 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe Item, type: :model do
-  before do
-    @item = FactoryBot.build(:item)
+  describe '#create' do
+    before do
+      @user = FactoryBot.create(:user)
+      @item = FactoryBot.build(:item, user: @user)
   end
   describe '商品出品機能' do
-    context '商品名登録できる場合' do
-      it "name、description、price、category_id、condition_id、shipping_free_burden_id、shipping_day_idが存在すれば登録できる"do
+      context '商品名登録できる場合' do
+        it "name、description、price、category_id、condition_id、shipping_free_burden_id、shipping_day_idが存在すれば登録できる"do
       expect(@item).to be_valid
       end
     end
@@ -30,6 +32,12 @@ RSpec.describe Item, type: :model do
       end
 
       it 'カテゴリーの情報が空だと保存できない' do
+        @item.category_id = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Category can't be blank")
+      end
+
+      it 'カテゴリーの選択が1以外の値であること' do
         @item.category_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Category can't be blank")
@@ -83,6 +91,12 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Price is not a number")
       end
       
+      it 'userが紐づいてないと出品できない' do
+        @item.user = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include("User must exist")
+        end
+      end
     end
   end
 end
