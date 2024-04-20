@@ -44,9 +44,9 @@ RSpec.describe OrderForm, type: :model do
         end
 
         it '番地が空だと購入できないこと' do
-          @order_form.street_adress = ''
+          @order_form.street_address = ''
           @order_form.valid?
-          expect(@order_form.errors.full_messages).to include("Street adress can't be blank")
+          expect(@order_form.errors.full_messages).to include("Street address can't be blank")
         end
 
         it '電話番号が空だと購入できないこと' do
