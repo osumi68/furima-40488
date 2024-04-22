@@ -20,6 +20,7 @@
     <div class="item-price-box">
       <span class="item-price">
         <span>￥<%= @item.price %>
+    </span>
       </span>
       <span class="item-postage">
         <%= ShippingFreeBurden.find(@item.shipping_free_burden_id).name %>
@@ -32,7 +33,7 @@
         <p class="or-text">or</p>
         <%= link_to "削除", item_path(@item), data: {turbo_method: :delete}, class:"item-destroy" %>
         <% else %>
-          <%= link_to "購入画面に進む", item_orders_path(@item) ,data: { turbo: false }, class:"item-red-btn"%>
+          <%= link_to "購入画面に進む", item_orders_path(@item) , class:"item-red-btn"%>
       <% end %>
     <% end %>  
 
