@@ -142,6 +142,8 @@
 /* /商品の概要 */
 
 .comment-box {
+  /* ... */
+  margin: 0 auto; /* コメント投稿部分を中央に配置 */
   width: 40vw;
   background-color: #fff;
   margin: 5vh 0;
