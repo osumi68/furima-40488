@@ -3,7 +3,6 @@ class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update, :destroy]
   before_action :item_sold_out, only: [:edit, :update, :destroy]
 
-
   def index
     @items = Item.all.order(created_at: :desc)
   end
@@ -28,14 +27,14 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    if current_user != @item.user || !user_signed_in?
-      redirect_to root_path
-    end
+    return unless current_user != @item.user || !user_signed_in?
+
+    redirect_to root_path
   end
 
   def update
     if @item.update(item_params)
-    redirect_to item_path(@item)
+      redirect_to item_path(@item)
     else
       render :edit, status: :unprocessable_entity
     end
@@ -62,8 +61,8 @@ class ItemsController < ApplicationController
   end
 
   def item_sold_out
-    if @item.order.present?
-      redirect_to root_path
-    end
+    return unless @item.order.present?
+
+    redirect_to root_path
   end
 end
